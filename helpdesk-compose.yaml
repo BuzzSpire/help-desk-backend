@@ -1,0 +1,32 @@
+#  (this file build app and database)
+# if you want to run this file, you need to install docker-compose
+# and rename this file to compose.yaml
+# and run this command: docker-compose up -d
+
+version: '3.7'
+
+services:
+  helpdesk:
+    image: openjdk:20-jdk-slim
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: helpdesk
+    networks:
+      - mynetwork
+    ports:
+      - 8080:8080
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    networks:
+      - mynetwork
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_USER=myuser
+
+networks:
+  mynetwork:

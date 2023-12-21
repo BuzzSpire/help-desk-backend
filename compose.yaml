@@ -1,0 +1,20 @@
+# default compose file
+# if you want to development, you need to rename this file to compose.yaml
+
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    networks:
+      - mynetwork
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_USER=myuser
+
+networks:
+  mynetwork:
